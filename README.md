@@ -1,6 +1,6 @@
 # Ansible role for Kubernetes master and node
 
-Ansible playbooks to setup a kubernetes cluster
+Ansible playbooks to setup a kubernetes cluster works on Ubuntu focal 20.04.1
 
 ## Inventory
 ```
