@@ -1,0 +1,16 @@
+---
+- name: Include vars
+  include_vars:
+    file: ../vars/main.yml
+
+- name: Include requiredParameters.yml
+  include: requiredParameters.yml
+
+- name: Run handlers to restart services
+  meta: flush_handlers
+
+- name: Include installPackages.yml
+  include: installPackages.yml
+
+- name: Include kubeadmWorkerNodes.yml
+  include: kubeadmWorkerNodes.yml

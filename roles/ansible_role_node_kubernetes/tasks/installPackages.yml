@@ -1,0 +1,46 @@
+---
+- name: Install the latest version of apt-transport-https and curl
+  package:
+    name:
+      - apt-transport-https
+      - curl
+      - vim
+    state: latest
+  become: yes
+
+- name: Add apt gpg key from google for ansible_role_master_kubernetes packages
+  apt_key:
+    url: https://packages.cloud.google.com/apt/doc/apt-key.gpg
+    state: present
+  become: yes
+
+- name: Add apt kubernetes repository
+  apt_repository:
+    repo: deb https://apt.kubernetes.io/ kubernetes-xenial main
+    state: present
+  become: yes
+
+- name: Update packages list
+  apt: update_cache=yes
+  become: yes
+
+- name: Install the {{ kubernetesVersion }} version of kubelet, kubeadm and kubectl
+  package:
+    name: "{{ item }}={{ kubernetesVersion }}"
+    state: present
+  loop:
+    - kubectl
+    - kubelet
+    - kubeadm
+  become: yes
+
+- name: Hold ansible_role_master_kubernetes packages
+  dpkg_selections:
+    name: "{{ item }}"
+    selection: hold
+  loop:
+    - kubelet
+    - kubeadm
+    - kubectl
+  become: yes  
+

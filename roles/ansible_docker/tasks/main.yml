@@ -1,0 +1,31 @@
+---
+# tasks file for docker
+- name: Enable universe repository
+  apt_repository:
+    repo: "{{ item }}"
+  loop:
+    - "deb http://archive.ubuntu.com/ubuntu/ bionic universe"
+    - "deb http://archive.ubuntu.com/ubuntu/ bionic-updates universe"
+    - "deb http://security.ubuntu.com/ubuntu/ bionic-security universe"
+  register: universe
+
+- name: packages upgrade
+  package:
+    update_cache: yes
+    upgrade: dist
+
+- name: install docker
+  include_role:
+    name: geerlingguy.docker
+  vars:
+    docker_edition: "ce"
+    docker_package_state: present
+    docker_service_state: started
+    docker_service_enabled: true
+    docker_install_compose: true
+    docker_compose_version: "1.25.4"
+    docker_compose_path: /usr/local/bin/docker-compose
+    docker_restart_handler_state: restarted
+    docker_users:
+      - "{{ ansible_user }}"
+  when: universe

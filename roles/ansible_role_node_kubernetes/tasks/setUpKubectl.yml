@@ -1,0 +1,19 @@
+---
+- name: Create directory for kube config
+  file: 
+    path: /home/root/.kube
+    state: directory
+    owner: "root"
+    group: "root"
+    mode: 0770
+  become: yes
+
+- name: Copy /etc/ansible_role_master_kubernetes/admin.conf to /home/vagrant/.kube/config
+  copy:
+    src: /etc/ansible_role_master_kubernetes/admin.conf
+    dest: /home/root/.kube/config
+    remote_src: yes
+    owner: "root"
+    group: "root"
+  become: yes
+

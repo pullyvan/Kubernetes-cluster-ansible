@@ -1,0 +1,19 @@
+---
+- name: Create directory for kube config
+  file: 
+    path: /root/.kube
+    state: directory
+    owner: "root"
+    group: "root"
+    mode: 0770
+  become: yes
+
+- name: Copy /etc/kubernetes/admin.conf to /root/.kube/config
+  copy:
+    src: /etc/kubernetes/admin.conf
+    dest: /root/.kube/config
+    remote_src: yes
+    owner: "root"
+    group: "root"
+  become: yes
+
