@@ -40,3 +40,8 @@ From the terminal run these command
 ```
 ansible-playbook -u root -i inventory/node_prod playbooks/main.yml
 ```
+## Check
+To verify from the master type this command
+```
+kubectl get node
+```
