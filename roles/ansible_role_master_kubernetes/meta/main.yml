@@ -1,7 +1,7 @@
 galaxy_info:
   author: Pullyvan Krishnamoorthy
   description: Installation of necessary packages for Kubernetes and create Kubernetes Cluster
-  company: EPFL
+  company: 
 
 
   license: license (GPL-2.0-or-later, MIT, etc)
