@@ -1,0 +1,15 @@
+- name: This is the main playbook
+  hosts: all
+  tasks:
+
+    - name: Update and upgrade all packages
+      include_role:
+        name: roles/update-system
+
+    - name: Install Docker
+      include_role:
+        name: roles/ansible_docker
+
+    - name: Install Kubernetes packages and setup the cluster
+      include_role:
+        name: roles/ansible_role_master_kubernetes

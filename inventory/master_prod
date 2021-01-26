@@ -1,0 +1,2 @@
+[master]
+hostname ansible_host=IP
